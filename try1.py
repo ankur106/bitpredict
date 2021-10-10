@@ -1119,7 +1119,7 @@ def run_script():
   final_df = merge_crypto_gnews_reddit_sentiment(df_crypto_gnews, df_reddit_sentiment_bucketized)
   final_df = final_df.dropna()
   
-  df_csv = pd.read_csv('/content/drive/MyDrive/bitpredict/final.csv',index_col=0)
+  df_csv = pd.read_csv('./final.csv',index_col=0)
   print('df_csv.columns',df_csv.columns,' len(df_csv.columns) ',len(df_csv.columns))
   li_data = list(final_df.loc[this_hour])
   
@@ -1135,7 +1135,7 @@ def run_script():
   print('df_csv.columns',df_csv.columns,' len(df_csv.columns) ',len(df_csv.columns))
   if len(df_csv.columns)==23:
     df_csv.to_csv('final.csv')
-    !cp final.csv "drive/My Drive/bitpredict"
+    # !cp final.csv "drive/My Drive/bitpredict"
   
   org_df = df_csv
   print(org_df.shape)
@@ -1193,7 +1193,7 @@ def run_script():
   print('Testing dataset length ', len(test))
   print('look_back ', look_back)
   print('total data',dataset.shape,' ',len(train)+len(test))
-  model = keras.models.load_model('/content/drive/MyDrive/bitpredict/model_l15_e8_train_last_80.h5')
+  model = keras.models.load_model('./model_l15_e8_train_last_80.h5')
   
   inp = testX[-10][newaxis,:,:]
   print(inp.shape)
@@ -1224,7 +1224,7 @@ def run_script():
   
   if not firebase_admin._apps:
     
-    cred_obj = credentials.Certificate('/content/drive/MyDrive/bitpredict/bitcoin-price-predictor-firebase-adminsdk-erp3v-7e3aceca37.json')
+    cred_obj = credentials.Certificate('./bitcoin-price-predictor-firebase-adminsdk-erp3v-7e3aceca37.json')
     
     default_app = firebase_admin.initialize_app(cred_obj, {
         'projectId': 'bitcoin-price-predictor',
@@ -1259,7 +1259,7 @@ while(1):
     d = datetime.datetime.now().minute
     if d==0:
       run_script()
-      f = open('/content/drive/MyDrive/bitpredict/log.txt', 'a')
+      f = open('./log.txt', 'a')
       print(str(datetime.datetime.now()) + " EXECUTED ")
       f.write(str(datetime.datetime.now()) + " EXECUTED" )
       f.close()
@@ -1268,7 +1268,7 @@ while(1):
       time.sleep(50)
 
   except Exception as e:
-    f = open('/content/drive/MyDrive/bitpredict/log.txt', 'a')
+    f = open('./log.txt', 'a')
     print(str(datetime.datetime.now()) + " NOT EXECUTED "+ str(e))
     f.write(str(datetime.datetime.now()) + " NOT EXECUTED "+ str(e))
     f.close()
